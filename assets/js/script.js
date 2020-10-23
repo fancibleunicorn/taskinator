@@ -287,11 +287,13 @@ var loadTasks = function() {
   tasks= localStorage.getItem("tasks");
   //Converts tasks from the string form back into an array of objects
 tasks = JSON.parse(tasks);
+
+  console.log(tasks);
   //iterates through a tasks array and creates task elements ont he page from it
   for (i =0; i < tasks.length; ++i) {
     tasks[i].id = taskIdCounter;
     console.log(tasks[i]);
-
+  }
     var listItemEl =document.createElement("li");
     listItemEl.className = "task-item";
     listItemEl.setAttribute("data-task-id", tasks[i].id);
@@ -304,9 +306,11 @@ tasks = JSON.parse(tasks);
 
     taskInfoEl.appendChild(listItemEl);
 
-    // stopped here #6  in 4.5.6
+    var taskActionsEl = createTaskActions(tasks[i].id)
 
-  }
+    taskActionsEl.appendChild(listItemEl);
+
+    console.log(listItemEl);
 }
 
 // Create a new task
