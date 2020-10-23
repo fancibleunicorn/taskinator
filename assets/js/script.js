@@ -279,6 +279,34 @@ var dragLeaveHandler = function (event) {
 
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+console.log(tasks);
+}
+
+var loadTasks = function() {
+  //gets task items from localStorage
+  tasks= localStorage.getItem("tasks");
+  //Converts tasks from the string form back into an array of objects
+tasks = JSON.parse(tasks);
+  //iterates through a tasks array and creates task elements ont he page from it
+  for (i =0; i < tasks.length; ++i) {
+    tasks[i].id = taskIdCounter;
+    console.log(tasks[i]);
+
+    var listItemEl =document.createElement("li");
+    listItemEl.className = "task-item";
+    listItemEl.setAttribute("data-task-id", tasks[i].id);
+    listItemEl.setAttribute("draggable", "true");
+    console.log(listItemEl);
+
+    var taskInfoEl = document.createElement("div");
+    taskInfoEl.className = "task-info";
+    taskInfoEl.innerHTML = "<h3 class='task-name>" + tasks[i].name + "</h3><span class='task-type'>" + tasks[i].type + "</span>";
+
+    taskInfoEl.appendChild(listItemEl);
+
+    // stopped here #6  in 4.5.6
+
+  }
 }
 
 // Create a new task
@@ -297,3 +325,5 @@ pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 pageContentEl.addEventListener("drop", dropTaskHandler);
 
 pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+
+loadTasks();
